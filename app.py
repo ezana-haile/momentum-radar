@@ -68,11 +68,8 @@ if st.button("?? Run Live 500-Ticker Mass Scan", use_container_width=True):
    
     # 1. DATE BOUNDARIES FOR HISTORICAL ANALYSIS
     # Look back 365 calendar days to guarantee we cover 200 trading days for the SMA
-    #end_date = datetime.date.today().isoformat()
-    #start_date = (datetime.date.today() - datetime.timedelta(days=365)).isoformat()
-    yesterday = datetime.date.today() - datetime.timedelta(days=1)
-    end_date = yesterday.isoformat()
-    start_date = (yesterday - datetime.timedelta(days=380)).isoformat()
+    end_date = datetime.date.today().isoformat()
+    start_date = (datetime.date.today() - datetime.timedelta(days=365)).isoformat()
                
     # 2. BATCH SLICER ENGINE
     BATCH_SIZE = 50
@@ -87,20 +84,29 @@ if st.button("?? Run Live 500-Ticker Mass Scan", use_container_width=True):
         progress_percentage = int((i / total_tickers) * 100)
         progress_bar.progress(progress_percentage)
        
-        try:
-            # 3. HIGH-SPEED BULK SNAPSHOT REQUEST
-            snapshot_url = f"{DATA_URL}/stocks/snapshots?symbols={ticker_string}"
-            snapshot_res = requests.get(snapshot_url, headers=headers)
+        # try:
+        #     # 3. HIGH-SPEED BULK SNAPSHOT REQUEST
+        #     snapshot_url = f"{DATA_URL}/stocks/snapshots?symbols={ticker_string}"
+        #     snapshot_res = requests.get(snapshot_url, headers=headers)
             
-            if snapshot_res.status_code != 200:
-                continue
-               
-            snapshots = snapshot_res.json().get('snapshots', {})
+        #     if snapshot_res.status_code != 200:
+        #         continue
+        try:
+            # 3. INDIVIDUAL LOOP ENGINE (Matches your working test script format)
+            for symbol in batch:
+                snapshot_url = f"{DATA_URL}/stocks/{symbol}/snapshot"
+                snapshot_res = requests.get(snapshot_url, headers=headers)
+                
+                if snapshot_res.status_code != 200:
+                    continue
+                   
+                stock_data = snapshot_res.json()       
+                snapshots = snapshot_res.json().get('snapshots', {})
            
             # 4. INDIVIDUAL SYMBOL ANALYSIS LOOP
             for symbol in batch:
-                if symbol not in snapshots or snapshots[symbol] is None:
-                    continue
+                #if symbol not in snapshots or snapshots[symbol] is None:
+                  #  continue
                
                 try:
                     stock_data = snapshots[symbol]
