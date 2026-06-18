@@ -5,7 +5,7 @@ import datetime
 import time
 
 st.set_page_config(page_title="Broad Market Radar", page_icon="📡", layout="centered")
-st.title("📡 500-Ticker Institutional Radar")
+st.title("📡 Momentum Radar")
 st.write("Batch-sliced scanning engine. Rates-optimized for broad market hunting.")
 
 # --- USER CREDENTIALS ---
