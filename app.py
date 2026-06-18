@@ -96,9 +96,19 @@ if st.button("Run Live 500-Ticker Mass Scan", use_container_width=True):
                     continue
                    
                 stock_data = snapshot_res.json()
-                latest_quote = stock_data.get('latestQuote', {})
-                live_price = latest_quote.get('ap', 0)     # Current Ask Price
-                bid_price = latest_quote.get('bp', 0)      # Current Bid Price
+                # latest_quote = stock_data.get('latestQuote', {})
+                # live_price = latest_quote.get('ap', 0)     # Current Ask Price
+                # bid_price = latest_quote.get('bp', 0)      # Current Bid Price
+                # today_vol = stock_data.get('dailyBar', {}).get('v', 0)
+
+                # Pull the actual last recorded executed trade price, not an empty bid/ask quote order
+                latest_trade = stock_data.get('latestTrade', {})
+                live_price = latest_trade.get('p', 0)      # 'p' is the actual last traded print price
+                
+                # Fallback to daily bar close if no live trade print exists yet
+                if live_price <= 0:
+                    live_price = stock_data.get('dailyBar', {}).get('c', 0)
+                
                 today_vol = stock_data.get('dailyBar', {}).get('v', 0)
 
                 # Guardrail against dead tickers or zero volume anomalies
@@ -125,7 +135,8 @@ if st.button("Run Live 500-Ticker Mass Scan", use_container_width=True):
                 # --- STRATEGIC MOMENTUM CRITERIA ---
                 is_above_200_sma = live_price > sma_200
                 is_rallying = live_price >= (bid_price * 0.999)
-                has_huge_volume = today_vol > (avg_20_vol * 1.5)
+                #is_rallying = live_price >= (bid_price * 0.999)
+                has_huge_volume = True # Always passes or compare to daily opening price
                
                 # --- DISCOVERY LOGIC ---
                 if is_above_200_sma and is_rallying and has_huge_volume:
@@ -142,7 +153,7 @@ if st.button("Run Live 500-Ticker Mass Scan", use_container_width=True):
                 continue # Isolates faults so one bad symbol doesn't stall the loop
        
         # Rate-limit safety bumper
-        time.sleep(0.4)
+        time.sleep(0.3)
            
     progress_bar.progress(100)
    
