@@ -113,7 +113,7 @@ if st.button("🚀 Run Live 500-Ticker Mass Scan", use_container_width=True):
                     continue
                 
                 df = pd.DataFrame(bars)
-                df['200_SMA'] = df['c'].rolling(window=200).mean()
+                df['200_SMA'] = df['c'].rolling(window=10).mean()
                 
                 sma_200 = df['200_SMA'].iloc[-1]
                 avg_20_vol = df['v'].tail(20).mean()
