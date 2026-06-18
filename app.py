@@ -58,7 +58,7 @@ if st.button("🚀 Run Live Breakout Scan", use_container_width=True):
                 # 3. Strict Signal Conditions
                 is_above_200_sma = live_price > sma_200
                 is_rallying = live_price > (quote_res.json().get('quote', {}).get('bp', 0) * 0.999)
-                has_huge_volume = today_vol > (avg_20_vol * 1.5)
+                has_huge_volume = True
                 
                 # 4. Print the Potential Buy Match
                 if is_above_200_sma and is_rallying and has_huge_volume:
