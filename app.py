@@ -120,7 +120,7 @@ if st.button("🚀 Run Live 500-Ticker Mass Scan", use_container_width=True):
                 
                 # 5. STRICT TREND & MOMENTUM CONSTRAINTS
                 is_above_200_sma = live_price > sma_200
-                is_rallying = live_price > (bid_price * 0.999)
+                is_rallying = live_price > (bid_price * 0.9)
                 has_huge_volume = today_vol > (avg_20_vol * 1.5)
                 
                 if is_above_200_sma and is_rallying and has_huge_volume:
