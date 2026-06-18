@@ -12,7 +12,7 @@ st.write("Batch-sliced scanning engine. Rates-optimized for broad market hunting
 st.sidebar.header("?? API Connection Settings")
 ALPACA_API_KEY = st.sidebar.text_input("Alpaca API Key", type="password", value="PKV7X5UXF3FVVIXXCW6MGJFENQ")
 ALPACA_SECRET_KEY = st.sidebar.text_input("Alpaca Secret Key", type="password", value="3vB8arzD18nTJvgULhCBRoda5FnoAzQspj9RhfdpMbxh")
-DATA_URL = "https://data.alpaca.markets/v2/stocks"
+DATA_URL = "https://data.alpaca.markets/v2"
 
 headers = {
     "APCA-API-KEY-ID": ALPACA_API_KEY,
@@ -109,7 +109,7 @@ if st.button("?? Run Live 500-Ticker Mass Scan", use_container_width=True):
                     continue
                 
                 bars = hist_res.json().get('bars', [])
-                if len(bars) < 200: 
+                if len(bars) < 10: 
                     continue
                 
                 df = pd.DataFrame(bars)
