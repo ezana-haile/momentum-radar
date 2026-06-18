@@ -99,19 +99,19 @@ if st.button("🚀 Run Live 500-Ticker Mass Scan", use_container_width=True):
                         continue
                    
                     # 4. HISTORY ENDPOINT CALL
-                    hist_res = requests.get(f"{DATA_URL}/stocks/{symbol}/bars?timeframe=1Day&start={start_date}&end={end_date}&limit=100", headers=headers)
-                    if hist_res.status_code != 200:
-                        continue
+                    # hist_res = requests.get(f"{DATA_URL}/stocks/{symbol}/bars?timeframe=1Day&start={start_date}&end={end_date}&limit=100", headers=headers)
+                    # if hist_res.status_code != 200:
+                    #     continue
                    
-                    bars = hist_res.json().get('bars', [])
-                    if len(bars) < 10: # Spaced down safely to verify the 10-period window
-                        continue
+                    # bars = hist_res.json().get('bars', [])
+                    # if len(bars) < 10: # Spaced down safely to verify the 10-period window
+                    #     continue
                    
-                    df = pd.DataFrame(bars)
-                    df['10_SMA'] = df['c'].rolling(window=10).mean()
+                    # df = pd.DataFrame(bars)
+                    # df['10_SMA'] = df['c'].rolling(window=10).mean()
                    
-                    sma_10 = df['10_SMA'].iloc[-1]
-                    avg_20_vol = df['v'].tail(20).mean()
+                    sma_10 = 1.0 #df['10_SMA'].iloc[-1]
+                    avg_20_vol = 1.0 # df['v'].tail(20).mean()
                    
                     # 5. CONSTRAINTS (Adjust filters back to strict targets during open hours)
                     is_above_sma = live_price > sma_10
