@@ -6,7 +6,7 @@ import time
 
 # --- STREAMLIT UI SETUP ---
 st.set_page_config(page_title="Momentum Radar", page_icon="??", layout="centered")
-st.title("?? 500-Ticker Institutional Breakout Radar")
+st.title("?? 500-Ticker Breakout Radar")
 st.write("Batch-sliced scanning engine optimized for heavy-volume trend detection.")
 
 # --- USER CREDENTIALS ---
@@ -68,8 +68,11 @@ if st.button("?? Run Live 500-Ticker Mass Scan", use_container_width=True):
    
     # 1. DATE BOUNDARIES FOR HISTORICAL ANALYSIS
     # Look back 365 calendar days to guarantee we cover 200 trading days for the SMA
-    end_date = datetime.date.today().isoformat()
-    start_date = (datetime.date.today() - datetime.timedelta(days=365)).isoformat()
+    #end_date = datetime.date.today().isoformat()
+    #start_date = (datetime.date.today() - datetime.timedelta(days=365)).isoformat()
+    yesterday = datetime.date.today() - datetime.timedelta(days=1)
+    end_date = yesterday.isoformat()
+    start_date = (yesterday - datetime.timedelta(days=380)).isoformat()
                
     # 2. BATCH SLICER ENGINE
     BATCH_SIZE = 50
