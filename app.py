@@ -67,19 +67,19 @@ if st.button("🚀 Run Live 500-Ticker Mass Scan", use_container_width=True):
     end_date = datetime.date.today().isoformat()
     start_date = (datetime.date.today() - datetime.timedelta(days=300)).isoformat()
 
-    # Process each individual ticker inside the current batch
-    for symbol in batch:
-        if symbol not in snapshots: 
-            continue
-        
-        stock_data = snapshots[symbol]
-        latest_quote = stock_data.get('latestQuote', {})
-        live_price = latest_quote.get('ap', 0)   # Ask price
-        today_vol = stock_data.get('dailyBar', {}).get('v', 0)
-        
-        # DIAGNOSTIC PRINT: Force the screen to print whatever data it finds
-        breakout_detected = True
-        st.write(f"🟢 Connected to {symbol} | Live Price: ${live_price} | Today's IEX Vol: {today_vol}")
+            # Process each individual ticker inside the current batch
+            for symbol in batch:
+                if symbol not in snapshots: 
+                    continue
+                
+                stock_data = snapshots[symbol]
+                latest_quote = stock_data.get('latestQuote', {})
+                live_price = latest_quote.get('ap', 0)   # Ask price
+                today_vol = stock_data.get('dailyBar', {}).get('v', 0)
+                
+                # DIAGNOSTIC PRINT: Force the screen to print whatever data it finds
+                breakout_detected = True
+                st.write(f"🟢 Connected to {symbol} | Live Price: ${live_price} | Today's IEX Vol: {today_vol}")
                 
     # # 2. BATCH SLICER: Split the 500 tickers into clean bundles of 50
     # BATCH_SIZE = 50
