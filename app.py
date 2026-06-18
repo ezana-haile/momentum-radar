@@ -87,11 +87,18 @@ if st.button("🚀 Run Live 500-Ticker Mass Scan", use_container_width=True):
                     avg_20_vol = 1.0 # df['v'].tail(20).mean()
                    
                     # 5. CONSTRAINTS (Adjust filters back to strict targets during open hours)
-                    is_above_sma = live_price > sma_10
-                    is_rallying = True 
-                    has_huge_volume = True 
+                    # is_above_sma = live_price > sma_10
+                    # is_rallying = True 
+                    # has_huge_volume = True 
                    
-                    if is_above_sma and is_rallying and has_huge_volume:
+                    # if is_above_sma and is_rallying and has_huge_volume:
+                    if True:
+                        breakout_detected = True
+                        st.success(
+                            f"🟢 **BUY TARGET IDENTIFIED: {symbol}**\n\n"
+                            f"* **Live Price:** ${live_price:.2f}\n"
+                            f"* **IEX Volume Status:** Tracked and online.\n"
+                        )
                         breakout_detected = True
                         st.success(
                             f"🟢 **BUY TARGET IDENTIFIED: {symbol}**\n\n"
