@@ -137,5 +137,3 @@ if st.button("🚀 Run Live 500-Ticker Mass Scan", use_container_width=True):
    
     if not breakout_detected:
         st.warning("Scan complete. No stock currently matches the filtering criteria.")
-
-Sent from Outlook for iOS
