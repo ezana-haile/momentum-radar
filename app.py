@@ -12,7 +12,7 @@ st.write("Batch-sliced scanning engine. Rates-optimized for broad market hunting
 st.sidebar.header("🔑 API Connection Settings")
 ALPACA_API_KEY = st.sidebar.text_input("Alpaca API Key", type="password", value="https://paper-api.alpaca.markets/v2")
 ALPACA_SECRET_KEY = st.sidebar.text_input("Alpaca Secret Key", type="password", value="PK5EJCWF5I262C7RFZBAWOW5UY")
-DATA_URL = "https://data.alpaca.markets/v2"
+DATA_URL = "https://data.alpaca.markets/v2/stocks"
 
 headers = {
     "APCA-API-KEY-ID": ALPACA_API_KEY,
