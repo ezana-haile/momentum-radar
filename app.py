@@ -1,8 +1,8 @@
 import requests 
 import streamlit as st 
 # 1. PASTE YOUR EXACT KEYS HERE 
-ALPACA_API_KEY = "https://paper-api.alpaca.markets/v2" 
-ALPACA_SECRET_KEY = "PK5EJCWF5I262C7RFZBAWOW5UY" 
+ALPACA_API_KEY = "PKV7X5UXF3FVVIXXCW6MGJFENQ" 
+ALPACA_SECRET_KEY = "3vB8arzD18nTJvgULhCBRoda5FnoAzQspj9RhfdpMbxh" 
 DATA_URL = "https://data.alpaca.markets/v2" 
 
 st.title("🔌 Alpaca Connection Tester") 
