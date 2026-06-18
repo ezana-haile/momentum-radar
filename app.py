@@ -122,12 +122,12 @@ if st.button("Run Live 500-Ticker Mass Scan", use_container_width=True):
                     continue
                
                 bars = hist_res.json().get('bars', [])
-                if len(bars) < 50:
+                if len(bars) < 10:
                     continue # Skip newly listed assets lacking a complete 200-day average trendline
                
                 # --- MATHEMATICAL CALCULATIONS ---
                 df = pd.DataFrame(bars)
-                df['200_SMA'] = df['c'].rolling(window=50).mean()
+                df['200_SMA'] = df['c'].rolling(window=10).mean()
                
                 sma_200 = df['200_SMA'].iloc[-1]
                 avg_20_vol = df['v'].tail(20).mean()
