@@ -71,7 +71,7 @@ if st.button("Run Live 500-Ticker Mass Scan", use_container_width=True):
     # 1. DATE BOUNDARIES FOR HISTORICAL ANALYSIS
     # Look back 400 calendar days to guarantee we easily cover 200 trading days
     end_date = datetime.date.today().isoformat()
-    start_date = (datetime.date.today() - datetime.timedelta(days=120)).isoformat()
+    start_date = (datetime.date.today() - datetime.timedelta(days=400)).isoformat()
                
     # 2. BATCH SLICER ENGINE
     BATCH_SIZE = 50
@@ -122,12 +122,12 @@ if st.button("Run Live 500-Ticker Mass Scan", use_container_width=True):
                     continue
                
                 bars = hist_res.json().get('bars', [])
-                if len(bars) < 10:
+                if len(bars) < 200:
                     continue # Skip newly listed assets lacking a complete 200-day average trendline
                
                 # --- MATHEMATICAL CALCULATIONS ---
                 df = pd.DataFrame(bars)
-                df['200_SMA'] = df['c'].rolling(window=10).mean()
+                df['200_SMA'] = df['c'].rolling(window=200).mean()
                
                 sma_200 = df['200_SMA'].iloc[-1]
                 avg_20_vol = df['v'].tail(20).mean()
@@ -153,7 +153,7 @@ if st.button("Run Live 500-Ticker Mass Scan", use_container_width=True):
                 continue # Isolates faults so one bad symbol doesn't stall the loop
        
         # Rate-limit safety bumper
-        time.sleep(0.3)
+        time.sleep(0.4)
            
     progress_bar.progress(100)
    
